@@ -5,10 +5,7 @@ Bundler.require
 
 $:.unshift File.expand_path("./../lib", __FILE__)
 require 'gossip'
+require 'router'
+Router.new.perform
 
-#Router.new.perform
-
-a = Gossip.new("geoffrey", "nadia_est_nulle").gossip_list
-puts a
-
-
+#e = Gossip.new("geoffrey", "nadia_est_nulle").save

@@ -1,8 +1,6 @@
 require 'controller'
 require 'csv'
 
-
-
 class Gossip 
 	attr_reader :author, :content 
 
@@ -11,11 +9,18 @@ class Gossip
   		@content = content
 	end
 
-	def gossip_list
-		my_gossip = Gossip.new(author, content) #=> Créé une instance de potin, sauvergardée juste dans cette variable
-   		CSV.open("db/gossip.csv", "wb") do |csv|
-  		csv << [author, content]
-    	end 
-   	 	my_gossip.save
+	def save
+   		CSV.open("db/gossip.csv", "a") do |csv|
+   		csv << [@author, @content]
+		end
+	end
+	
+	def self.all
+  		all_gossips = []
+  		CSV.open("db/gossip.csv", "r").each do |ligne|	
+     	gossip_provisoire = Gossip.new(ligne[0], ligne[1]) 
+    	all_gossips << gossip_provisoire 
+   		end
+   		return all_gossips
 	end
 end
